@@ -22,8 +22,10 @@ namespace Index
 }
 namespace Demo
 {
-     abstract class C_T_Class//abstract:加以修饰的话,对该类进行继承的了,必须对该类的未实例化函数进行实例化,也就是必须对父类的函数进行定义,而被声明为abstract的类,不能进行实例化;
+    abstract class C_T_Class//abstract:加以修饰的话,对该类进行继承的了,必须对该类的未实例化函数进行实例化,也就是必须对父类的函数进行定义,而被声明为abstract的类,不能进行实例化;
+    //sealed class C_T_Class//sealed关键字使其他类无法继承该类;
     {
+        virtual protected void Fun_sealed() { }//该函数用于测试函数的sealed关键字;
         //访问级别//
         public    void Fun_0()           { }   //public为公共访问级别,在任何地方都可以使用Fun_0，子类继承后,子类对该函数的权限为public;
         private   void Fun_1()           { }   //private为私有访问级别,在类内部的函数可以使用Fun_1,子类继承后,将访问不到该函数,也就是不进行继承;
@@ -34,6 +36,7 @@ namespace Demo
     }
     class C_T_SonClass : C_T_Class
     {
+        sealed protected override void Fun_sealed(){}    //密封该函数,让之后继承该类的子类不能使用重写该函数;
         public delegate void Fun_Delegate();             //委托,即为函数指针.使用Fun_Delegate可以创建函数指针;
         public Fun_Delegate Var_method;                  //使用method(),即可以调用绑定的委托,任何地方可以调用;
         public event Fun_Delegate Var_event_method;      //将上面的委托进行申明成事件,事件只能使用+=进行捆绑,-=进行解绑,事件只能在和类内部进行调用;
