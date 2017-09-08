@@ -16,12 +16,21 @@ namespace Index
      * 8.override
      * 9.delegate
      * 10.event
-     * 11.
-     * 12.
+     * 11.interface
+     * 12.属性;
+     * 13.索引器;
+     * 14.
      */
 }
 namespace Demo
-{
+{   
+    interface Inter_T_I                        //继承接口的子类必须对接口的成员函数进行初始化,接口除了字段,都可以申明;
+    {
+        void Fun_Interface();                  //函数;
+        int GetNum { get; set; }               //属性;
+        string this[int index]{get;set;}       //索引器;
+
+    }
     abstract class C_T_Class//abstract:加以修饰的话,对该类进行继承的了,必须对该类的未实例化函数进行实例化,也就是必须对父类的函数进行定义,而被声明为abstract的类,不能进行实例化;
     //sealed class C_T_Class//sealed关键字使其他类无法继承该类;
     {
@@ -34,7 +43,7 @@ namespace Demo
         abstract public void Fun_abstract();   //如果该函数未实例化,就一定要在子类实例化;
         virtual public void Fun_virtual(){ }   //虚函数,实现了多态性,在编译的时候确定对象的类型,进行联编,也就是编译时确定使用的函数;
     }
-    class C_T_SonClass : C_T_Class
+    class C_T_SonClass : C_T_Class,Inter_T_I
     {
         sealed protected override void Fun_sealed(){}    //密封该函数,让之后继承该类的子类不能使用重写该函数;
         public delegate void Fun_Delegate();             //委托,即为函数指针.使用Fun_Delegate可以创建函数指针;
@@ -50,11 +59,22 @@ namespace Demo
         Action<int, int, int> Var_a = new Action<int, int, int>(method_one);
                                                          //void 类型的委托,参数为三个int参数;
         Func<int, int, int, int> Var_b = new Func<int, int, int, int>(method_two);
-                                                         //第一个参数为函数类型,参数为三个int参数;;
+        //第一个参数为函数类型,参数为三个int参数;;
         public void Fun_TL_()
         {
             Var_a(10, 10, 10);
             Var_b(10, 10, 10);
-        }                                                //使用上面那两个委托;
+        }                         //使用上面那两个委托;
+        public int GetNum                                //继承的接口的属性;                      
+        {
+            get { return 0; }
+            set { }
+        }                                           
+        public string this[int index]                    //继承接口的索引器;
+        {
+            get { return "hello"; }
+            set { }
+        }                 
+        public void Fun_Interface(){ }                    //继承接口的函数;
     }
 }
