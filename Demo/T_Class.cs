@@ -19,13 +19,13 @@ namespace Index
      * 11.interface
      * 12.属性;
      * 13.索引器;
-     * 14.
+     * 14.internal 
      */
 }
 namespace Demo
-{   
-    interface Inter_T_I                        //继承接口的子类必须对接口的成员函数进行初始化,接口除了字段,都可以申明;
-    {
+{
+    internal interface Inter_T_I               //继承接口的子类必须对接口的成员函数进行初始化,接口除了字段,都可以申明;
+    {    //internal 修饰符,表示该接口只可以在该程序集中使用;
         void Fun_Interface();                  //函数;
         int GetNum { get; set; }               //属性;
         string this[int index]{get;set;}       //索引器;
@@ -45,6 +45,7 @@ namespace Demo
     }
     class C_T_SonClass : C_T_Class,Inter_T_I
     {
+        internal void Fun_Test() { }                     //表示该函数只可以在该程序中使用;
         sealed protected override void Fun_sealed(){}    //密封该函数,让之后继承该类的子类不能使用重写该函数;
         public delegate void Fun_Delegate();             //委托,即为函数指针.使用Fun_Delegate可以创建函数指针;
         public Fun_Delegate Var_method;                  //使用method(),即可以调用绑定的委托,任何地方可以调用;
